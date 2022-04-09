@@ -3,7 +3,7 @@ import copy
 
 def matrixRotation(matrix, r):
     
-    # This deepcopy function doesn't affect 'matrix' list when changing values in 'temp' list 
+    # This 'deepcopy' function doesn't affect 'matrix' list when changing values in 'temp' list 
     temp = copy.deepcopy(matrix)
 
     # Initialize start, number of rows and columns
