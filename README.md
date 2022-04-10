@@ -84,7 +84,7 @@ The matrix is rotated through two rotations.
 4 3 2 1
 ```
 # Explanation 02
-The various states through 7 rotations:
+The various states through 7 rotations: 
 ```
     1  2  3  4      2  3  4 10    3  4 10 16    4 10 16 22
     7  8  9 10      1  9 15 16    2 15 21 22    3 21 20 28
