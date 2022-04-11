@@ -59,7 +59,7 @@ STDIN        Function
 5 9 13 14
 ```
 # Explanation #01
-The matrix is rotated through two rotations.
+The matrix is rotated through two rotations
 ```
      1  2  3  4      2  3  4  8      3  4  8 12
      5  6  7  8      1  7 11 12      2 11 10 16
