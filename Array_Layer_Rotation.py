@@ -16,7 +16,20 @@ def matrixRotation(matrix, r):
     loops.append(len(matrix[0]) // 2)
     loops.append(len(matrix) // 2)
 
-    value_count = 2 * len(matrix) + 2 * len(matrix[0]) - 4
+    # Rotating 'r' number of times is a time consuming process when rotation(r) is greater than total values(value_count)
+    # Example 1: we can take 2 * 2 matrix([1,2],[3,4]), Possible layer count is 1. Number of values in the layer is 4.
+    # If we 'r' is greater than number of value(value_count) i.e., For instance value count = 4 , r = 16.
+    # Rotating 16 times is a time consuming process for each layer. So our approach is to reduce 'r' by using formula
+    # The layer remains the same when 'r' reaches the multiple of value_count i.e., remains same when 'r' value reaches 4, 8, 16.
+    # The approach is to get the remainder of dividing 'r' by value_count. If remainder is zero, 'r' is update with remainder value.
+    # The loop goes zero times.
+    # Example 2: Just changing 'r' from 16 to 17. The updated number of Rotation is 1.
+    # Imagine the matrix 300 * 300, r = 999999999(99 crore), 
+    # value_count in outer layer is (2 * 300) + (2 * 300) - 4, 1196 values in outer layer.
+    # new_rotation = r % value_count
+    # new_rotation = 999999999 % 1196
+    # Using this approach 99 crore rotations is reduced to 479.     
+    value_count = 2 * len(matrix) + 2 * len(matrix[0]) - 4 # FORMULA
     if r > value_count:
         new_rotation = (r % value_count)
     else:
@@ -43,7 +56,6 @@ def matrixRotation(matrix, r):
             for l in range(start, no_row):
                 temp[l][no_col] = matrix[l + 1][no_col]
 
-
             matrix = copy.deepcopy(temp)
 
         # After changing one layer of the matrix, goes to the next layer by
@@ -54,6 +66,7 @@ def matrixRotation(matrix, r):
         no_row -= 1
         no_col -= 1
 
+        # Approach used to reduce number of rotations
         row_val = (no_row  - start) + 1
         col_val = (no_col - start) + 1
         value_count = (2 * row_val) + (2 * col_val ) - 4
@@ -64,13 +77,8 @@ def matrixRotation(matrix, r):
                 new_rotation = r
         except:
             continue
-        """
-        # Layer starts from the 0 on next iteration. So, reinitializing start value, number of rows, columns and update matrix with the new 'temp' list 
-        start = 0
-        no_row = len(matrix) - 1
-        no_col= len(matrix[0]) - 1
-        """
-
+        
+        
     # Print 2D array each row values in new line and removing commas 
     for i in range(0, len(temp)):
         print(*temp[i])
