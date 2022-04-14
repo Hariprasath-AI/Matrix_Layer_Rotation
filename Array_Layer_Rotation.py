@@ -16,11 +16,17 @@ def matrixRotation(matrix, r):
     loops.append(len(matrix[0]) // 2)
     loops.append(len(matrix) // 2)
 
-    # Loops goes 'r' number of rotations 
-    for _ in range(0, r):
+    value_count = 2 * len(matrix) + 2 * len(matrix[0]) - 4
+    if r > value_count:
+        new_rotation = (r % value_count)
+    else:
+        new_rotation = r
 
-        # Loops through the inner layer of matrix
-        for _ in range(0, min(loops)):
+    # Loops through the inner layer of matrix
+    for _ in range(0, min(loops)):
+
+        # Loops goes 'r' number of rotations 
+        for _ in range(0, new_rotation):
 
             # These 4 loops goes through the layers of matrix and changes value in anti-clockwise direction
             for i in range(start, no_col ):
@@ -37,19 +43,33 @@ def matrixRotation(matrix, r):
             for l in range(start, no_row):
                 temp[l][no_col] = matrix[l + 1][no_col]
 
-            # After changing one layer of the matrix, goes to the next layer by
-            # 1. increasing start value by 1 
-            # 2. decreasing row and column value by 1
-            
-            start += 1
-            no_row -= 1
-            no_col -= 1
+
+            matrix = copy.deepcopy(temp)
+
+        # After changing one layer of the matrix, goes to the next layer by
+        # 1. increasing start value by 1 
+        # 2. decreasing row and column value by 1
         
+        start += 1
+        no_row -= 1
+        no_col -= 1
+
+        row_val = (no_row  - start) + 1
+        col_val = (no_col - start) + 1
+        value_count = (2 * row_val) + (2 * col_val ) - 4
+        try:
+            if r > value_count:
+                new_rotation =  r % value_count
+            elif r < value_count:
+                new_rotation = r
+        except:
+            continue
+        """
         # Layer starts from the 0 on next iteration. So, reinitializing start value, number of rows, columns and update matrix with the new 'temp' list 
         start = 0
         no_row = len(matrix) - 1
         no_col= len(matrix[0]) - 1
-        matrix = copy.deepcopy(temp)
+        """
 
     # Print 2D array each row values in new line and removing commas 
     for i in range(0, len(temp)):
